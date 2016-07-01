@@ -17,16 +17,16 @@ public:
 	// destructor
 	~BVH_Collector() 
 	{
-		myFile.close();
+	//	myFile.close();
 	};
 
-	enum
+/*	enum
 	{
 		BVHBoneCount = 59,
 		CalcBoneCount = 21,
 	};
-
-	ofstream myFile;
+	*/
+	//ofstream myFile;
 
 	protected:
 		// Receive Data
@@ -38,6 +38,6 @@ public:
 	SOCKET_REF sockTCPRef;
 	SOCKET_REF sockUDPRef;
 
-	void showBvhBoneInfo(SOCKET_REF sender, BvhDataHeader* header, float* data);
+	//void showBvhBoneInfo(SOCKET_REF sender, BvhDataHeader* header, float* data);
 };
 #endif

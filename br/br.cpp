@@ -24,13 +24,14 @@ using namespace std;
 BVH_Collector::BVH_Collector(){
 	sockTCPRef = NULL;
 	sockUDPRef = NULL;
-	myFile.open("example.csv");
 }
 
 
 
 int main()
 {	
+	ofstream myFile;
+	myFile.open("example.csv");
 	BVH_Collector b;
 	// connect TCP
 	b.sockTCPRef = BRConnectTo("127.0.0.1", 7005);
@@ -63,7 +64,7 @@ int main()
 
 	// close UDP socket
 	BRCloseSocket(b.sockUDPRef);
-	
+	myFile.close();
 	//return 0;
 }
 
@@ -72,10 +73,10 @@ void __stdcall BVH_Collector::bvhFrameDataReceived(void* customedObj, SOCKET_REF
 	//pthis->showBvhBoneInfo(sender, header, data);
 }
 
-void __stdcall BVH_Collector::showBvhBoneInfo(SOCKET_REF sender, BvhDataHeader* header, float* data) {
+/*void __stdcall BVH_Collector::showBvhBoneInfo(SOCKET_REF sender, BvhDataHeader* header, float* data) {
 	myFile << data[37 + 4];
 	myFile << ",";
-
+*/
 	/*
 	char strBvhData[64];
 	sprintf_s(strBvhData, "%0.3f\t", dispX);
@@ -87,4 +88,4 @@ void __stdcall BVH_Collector::showBvhBoneInfo(SOCKET_REF sender, BvhDataHeader* 
 	sprintf_s(strBvhData, "%0.3f\t", angZ);
 	*/
 
-}
+/*}*/
