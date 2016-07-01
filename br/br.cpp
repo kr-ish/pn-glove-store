@@ -2,10 +2,85 @@
 //
 
 #include "stdafx.h"
+#include "br.h"
+
+#ifdef _DEBUG
+#define new DEBUG_NEW
+#endif
+
+// Load required libraries
+#ifdef _WIN64
+#pragma comment(lib, "/x64/NeuronDataReader.lib")//Add Lib
+#elif defined _WIN32 
+#pragma comment(lib, "C:/Users/KR/Documents/Visual Studio 2015/Projects/RM/br/br/x86")//Add Lib
+#pragma comment(lib,"ws2_32.lib")
+#endif
+
+#pragma comment(lib, "dynamixel.lib")
+
+using namespace std;
+
+// ????
+class BVH_Collector{
+	sockTCPRef = NULL;
+	sockUDPRef = NULL;
+	myFile.open("example.csv");
+}
+
 
 
 int main()
-{
-    return 0;
+{	
+
+	// connect TCP
+	sockTCPRef = BRConnectTo(127.0.0.1, 7005);
+
+	if (sockTCPRef) {
+		print("Successfully connected via TCP");
+	else {
+		print("TCP connection failed");
+	}
+	}
+
+	// connect UDP
+	sockUDPRef = BRStartUDPServiceAt(7001);
+
+	if (sockUDPRef) {
+		print("Successfully connected via UDP");
+	else {
+		print("UDP connection failed");
+	}
+	}
+
+	BRRegisterFrameDataCallback(this, bvhFrameDataReceived);
+
+	// close TCP socket
+	BRCloseSocket(sockTCPRef);
+
+	// close UDP socket
+	BRCloseSocket(sockUDPRef);
+	
+	//return 0;
 }
 
+void __stdcall BVH_Collector::bvhFrameDataReceived(void* customedObj, SOCKET_REF sender, BvhDataHeader* header, float* data) {
+	BVH_Collector* pthis = (BVHCollect*)customedObj;
+	pthis->showBvhBoneInfo(sender, header, data);
+}
+
+void __stdcall BVH_Collector::showBvhBoneInfo(SOCKET_REF sender, BvhDataHeader* header, float* data) {
+	myFile << data[37 + 4];
+	myFile << ",";
+
+	/*
+	char strBvhData[64];
+	sprintf_s(strBvhData, "%0.3f\t", dispX);
+	sprintf_s(strBvhData, "%0.3f\t", dispY);
+	sprintf_s(strBvhData, "%0.3f\t", dispZ);
+
+	sprintf_s(strBvhData, "%0.3f\t", angX);
+	sprintf_s(strBvhData, "%0.3f\t", angY);
+	sprintf_s(strBvhData, "%0.3f\t", angZ);
+	*/
+
+}
