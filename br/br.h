@@ -1,3 +1,5 @@
+#ifndef BR_H_
+#define BR_H_
 #pragma once
 
 // Include the NeuronDataReader head file
@@ -13,7 +15,8 @@ public:
 	// contructor
 	BVH_Collector();
 	// destructor
-	~BVH_Collector() {
+	~BVH_Collector() 
+	{
 		myFile.close();
 	};
 
@@ -23,14 +26,18 @@ public:
 		CalcBoneCount = 21,
 	};
 
+	ofstream myFile;
+
 	protected:
 		// Receive Data
 		static void __stdcall bvhFrameDataReceived(void* customedObj, SOCKET_REF sender, BvhDataHeader* header, float* data);
 
 // Implementation
-protected:
+//protected:
+public:
 	SOCKET_REF sockTCPRef;
 	SOCKET_REF sockUDPRef;
 
-	void showBvhBoneINfo(SOCKET_REF sender, BvhDataHeader* header, float* data);
-}
+	void showBvhBoneInfo(SOCKET_REF sender, BvhDataHeader* header, float* data);
+};
+#endif

@@ -21,7 +21,7 @@
 using namespace std;
 
 // ????
-class BVH_Collector{
+BVH_Collector::BVH_Collector(){
 	sockTCPRef = NULL;
 	sockUDPRef = NULL;
 	myFile.open("example.csv");
@@ -31,41 +31,45 @@ class BVH_Collector{
 
 int main()
 {	
-
+	BVH_Collector b;
 	// connect TCP
-	sockTCPRef = BRConnectTo(127.0.0.1, 7005);
+	b.sockTCPRef = BRConnectTo("127.0.0.1", 7005);
 
-	if (sockTCPRef) {
-		print("Successfully connected via TCP");
-	else {
-		print("TCP connection failed");
+	if (b.sockTCPRef) {
+		//print("Successfully connected via TCP");
+		cout << "Successfully connected via TCP";
 	}
+	else {
+		//print("TCP connection failed");
+		cout << "TCP connection failed";
 	}
 
 	// connect UDP
-	sockUDPRef = BRStartUDPServiceAt(7001);
+	b.sockUDPRef = BRStartUDPServiceAt(7001);
 
-	if (sockUDPRef) {
-		print("Successfully connected via UDP");
+	if (b.sockUDPRef) {
+		//print("Successfully connected via UDP");
+		cout << "Successfully connected via UDP";
+	}
 	else {
-		print("UDP connection failed");
-	}
+		//print("UDP connection failed");
+		cout << "UDP connection failed";
 	}
 
-	BRRegisterFrameDataCallback(this, bvhFrameDataReceived);
+	BRRegisterFrameDataCallback(this, b.bvhFrameDataReceived);
 
 	// close TCP socket
-	BRCloseSocket(sockTCPRef);
+	BRCloseSocket(b.sockTCPRef);
 
 	// close UDP socket
-	BRCloseSocket(sockUDPRef);
+	BRCloseSocket(b.sockUDPRef);
 	
 	//return 0;
 }
 
 void __stdcall BVH_Collector::bvhFrameDataReceived(void* customedObj, SOCKET_REF sender, BvhDataHeader* header, float* data) {
-	BVH_Collector* pthis = (BVHCollect*)customedObj;
-	pthis->showBvhBoneInfo(sender, header, data);
+	//BVH_Collector* pthis = (BVHCollect*)customedObj;
+	//pthis->showBvhBoneInfo(sender, header, data);
 }
 
 void __stdcall BVH_Collector::showBvhBoneInfo(SOCKET_REF sender, BvhDataHeader* header, float* data) {
