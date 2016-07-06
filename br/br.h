@@ -3,7 +3,6 @@
 #pragma once
 
 // Include the NeuronDataReader head file
-#include "DataType.h"
 #include "NeuronDataReader.h"
 #include <iostream>
 #include <fstream>
@@ -15,10 +14,10 @@ public:
 	// contructor
 	BVH_Collector();
 	// destructor
-	~BVH_Collector() 
-	{
+	~BVH_Collector();
+	//{
 	//	myFile.close();
-	};
+	//};
 
 /*	enum
 	{
@@ -28,16 +27,17 @@ public:
 	*/
 	//ofstream myFile;
 
-	protected:
-		// Receive Data
-		static void __stdcall bvhFrameDataReceived(void* customedObj, SOCKET_REF sender, BvhDataHeader* header, float* data);
+	//protected:		// Receive Data
+	//	static void __stdcall bvhFrameDataReceived(void* customedObj, SOCKET_REF sender, BvhDataHeader* header, float* data);
 
 // Implementation
 //protected:
 public:
-	SOCKET_REF sockTCPRef;
-	SOCKET_REF sockUDPRef;
-
-	//void showBvhBoneInfo(SOCKET_REF sender, BvhDataHeader* header, float* data);
+	//SOCKET_REF sockTCPRef;
+	//SOCKET_REF sockUDPRef;
+	void testConnection();
+	void showBvhBoneInfo(SOCKET_REF sender, BvhDataHeader* header, float* data);
+//private:
+	SOCKET_REF mSocketRef;
 };
 #endif
