@@ -89,9 +89,9 @@ void BVH_Collector::showBvhBoneInfo(SOCKET_REF sender, BvhDataHeader* header, fl
 		float angleZ = data[dataIndex + 5];
 
 		char strBuff[32];
-		sprintf_s(strBuff, sizeof(strBuff), "%0.3F", angleX);
-		sprintf_s(strBuff, sizeof(strBuff), "%0.3F", angleY);
-		sprintf_s(strBuff, sizeof(strBuff), "%0.3F", angleZ);
+		sprintf_s(strBuff, sizeof(strBuff), "%0.3f", angleX);
+		sprintf_s(strBuff, sizeof(strBuff), "%0.3f", angleY);
+		sprintf_s(strBuff, sizeof(strBuff), "%0.3f", angleZ);
 
 		cout << "Angle X" << angleX << ", Angle Y" << angleY << ", Angle Z" << angleZ << "\n";
 	}
